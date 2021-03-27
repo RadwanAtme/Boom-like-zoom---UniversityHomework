@@ -160,7 +160,9 @@ bool AVLTree<Node>::NodeIsIn(Node &node) const{
 }
 template<class Node>
 Node* AVLTree<Node>::getSmallestElement() {
-    return smallest_element;
+    Node* node = smallest_element;
+    while((node)&&(node->getLeft()!= nullptr)){node=node->getLeft();}
+    return node;
 }
 template<class Node>
 StatusType AVLTree<Node>::addNode(Node* node){
@@ -364,6 +366,7 @@ void AVLTree<Node>::updateHeight(Node *node) {
         if (temp->getBF() > 1 || temp->getBF() < -1) {
             rotateTree(temp);
         }
+        if((temp==smallest_element)&&(temp->getLeft()!= nullptr)){smallest_element = temp->getLeft();}
         temp = temp->getParent();
     }
 }
@@ -419,6 +422,8 @@ void AVLTree<Node>::rotateLL(Node *node) {
     }
     son->getRight() = node;
     node->getParent() = son;
+    node->getLeft() = rightSon;
+
 
     if (parent && parent->getRight() == node) {
         parent->getRight() = son;
@@ -444,6 +449,7 @@ void AVLTree<Node>::rotateRR(Node *node) {
     }
     son->getLeft() = node;
     node->getParent() = son;
+    node->getRight() = leftSon;
 
     if (parent && parent->getRight() == node) {
         parent->getRight() = son;
@@ -477,6 +483,7 @@ void AVLTree<Node>::updateHeights(Node *node, Node *son) {
 template<class Node>
 void AVLTree<Node>::getMostViewedClasses(int numOfClasses, int *courses, int *classes, int& index) const{
     Node* node = smallest_element;
+    while((node)&&(node->getLeft()!= nullptr)){node=node->getLeft();}
     ReverseInOrder(node,numOfClasses,courses,classes,index,0,1);
 }
 
