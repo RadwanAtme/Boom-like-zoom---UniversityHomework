@@ -83,7 +83,7 @@ StatusType Boom<Tree, List, DoubleTree, Node, PointerNode,AVLTreeNode>::removeCo
 template<class Tree, class List, class DoubleTree, class Node, class PointerNode,class AVLTreeNode>
 StatusType Boom<Tree, List, DoubleTree, Node, PointerNode,AVLTreeNode>::WatchClass(int courseID, int classID, int time) {
     assert(courseID > 0);
-    assert(classID >= 0);
+    assert(classID > 0);
     assert(time > 0);
     try {
         PointerNode pointer_temp_node(courseID,0);
